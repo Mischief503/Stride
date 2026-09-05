@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Stride</string>
+
+    <string name="nav_today">Hoy</string>
+    <string name="nav_calendar">Calendario</string>
+    <string name="nav_insights">Estad\u00edsticas</string>
+    <string name="nav_habits">H\u00e1bitos</string>
+
+    <string name="title_today">Hoy</string>
+    <string name="title_calendar">Calendario</string>
+    <string name="title_insights">Estad\u00edsticas</string>
+    <string name="title_habits">H\u00e1bitos</string>
+    <string name="title_settings">Ajustes</string>
+    <string name="title_detail">H\u00e1bito</string>
+    <string name="title_add_habit">Nuevo h\u00e1bito</string>
+    <string name="title_edit_habit">Editar h\u00e1bito</string>
+    <string name="title_routine">Rutina</string>
+
+    <string name="daily_score_label">Puntuaci\u00f3n diaria</string>
+    <plurals name="momentum_days">
+        <item quantity="one">%1$d d\u00eda de impulso</item>
+        <item quantity="other">%1$d d\u00edas de impulso</item>
+    </plurals>
+    <plurals name="grace_banner">
+        <item quantity="one">%1$d h\u00e1bito a\u00fan tiene un salto de gracia esta semana \u2014 una falta no romper\u00e1 la racha.</item>
+        <item quantity="other">%1$d h\u00e1bitos a\u00fan tienen un salto de gracia esta semana \u2014 una falta no romper\u00e1 la racha.</item>
+    </plurals>
+
+    <string name="today_empty_title">Crea tu primer h\u00e1bito</string>
+    <string name="today_empty_body">Empieza con algo peque\u00f1o \u2014 puedes construir desde ah\u00ed.</string>
+    <string name="today_empty_cta">A\u00f1adir h\u00e1bito</string>
+    <string name="today_perfect_sub">Todo registrado \u2014 nos vemos ma\u00f1ana.</string>
+    <plurals name="today_more_sub">
+        <item quantity="one">%1$d m\u00e1s para un d\u00eda perfecto</item>
+        <item quantity="other">%1$d m\u00e1s para un d\u00eda perfecto</item>
+    </plurals>
+    <string name="today_group_morning">Ma\u00f1ana</string>
+    <string name="today_group_afternoon">Tarde</string>
+    <string name="today_group_evening">Noche</string>
+    <string name="today_group_anytime">En cualquier momento</string>
+    <string name="today_due">pendiente hoy</string>
+    <string name="today_grace_used">gracia usada</string>
+
+    <string name="toast_marked_done">%1$s marcado como hecho</string>
+    <string name="toast_undo">Deshacer</string>
+    <string name="toast_add_note">A\u00f1adir nota</string>
+
+    <string name="menu_use_grace">Usar un salto de gracia</string>
+    <string name="menu_view_insights">Ver estad\u00edsticas</string>
+    <string name="menu_edit">Editar h\u00e1bito</string>
+    <string name="menu_archive">Archivar h\u00e1bito</string>
+    <string name="menu_restore">Restaurar h\u00e1bito</string>
+    <string name="menu_delete">Eliminar definitivamente</string>
+    <string name="menu_cancel">Cancelar</string>
+    <string name="menu_log_note">A\u00f1adir una nota</string>
+    <string name="menu_log_value">Registrar cantidad</string>
+    <string name="menu_pause">Pausar h\u00e1bito</string>
+    <string name="menu_resume">Reanudar h\u00e1bito</string>
+
+    <string name="confirm_archive_title">\u00bfArchivar %1$s?</string>
+    <string name="confirm_archive_body">Se mover\u00e1 fuera de Hoy y H\u00e1bitos hasta que lo restaures.</string>
+    <string name="confirm_delete_title">\u00bfEliminar %1$s definitivamente?</string>
+    <string name="confirm_delete_body">Esto elimina todo su historial. No se puede deshacer.</string>
+    <string name="btn_cancel">Cancelar</string>
+    <string name="btn_archive">Archivar</string>
+    <string name="btn_delete">Eliminar</string>
+
+    <string name="insights_all">Todos los h\u00e1bitos</string>
+    <string name="insights_weekly_consistency">Constancia semanal</string>
+    <string name="insights_across">en %1$d h\u00e1bitos</string>
+    <string name="insights_completion_rate">Tasa de cumplimiento</string>
+    <string name="insights_last_5_weeks">\u00daltimas 5 semanas</string>
+    <string name="insights_by_day">Por d\u00eda de la semana</string>
+    <string name="insights_best_habit">%1$s tiene tu mejor tasa de cumplimiento con %2$d%%.</string>
+    <string name="insights_best_day">%1$s es tu mejor d\u00eda para este h\u00e1bito.</string>
+    <string name="insights_needs_attention">%1$s podr\u00eda necesitar m\u00e1s atenci\u00f3n \u2014 %2$d%%.</string>
+    <string name="insights_lowdata_title">Los patrones tardan unos d\u00edas</string>
+    <string name="insights_lowdata_body">Registra cada d\u00eda y las estad\u00edsticas se desbloquean solas.</string>
+    <string name="insights_days_logged">D\u00edas registrados</string>
+    <string name="insights_no_habits_title">A\u00fan no hay h\u00e1bitos</string>
+    <string name="insights_no_habits_body">A\u00f1ade un h\u00e1bito en Hoy para empezar a ver patrones.</string>
+
+    <string name="habits_search_placeholder">Buscar h\u00e1bitos</string>
+    <string name="habits_active">Activos</string>
+    <string name="habits_archived">Archivados</string>
+    <string name="habits_none">A\u00fan no hay h\u00e1bitos. Toca + para a\u00f1adir uno.</string>
+    <string name="habits_no_results">Ning\u00fan h\u00e1bito coincide con tu b\u00fasqueda.</string>
+    <string name="habits_weekly_progress">%1$d/%2$d esta semana</string>
+
+    <string name="detail_current_streak">Racha actual</string>
+    <string name="detail_longest_streak">Racha m\u00e1s larga</string>
+    <string name="detail_30_day_rate">Tasa de 30 d\u00edas</string>
+    <string name="detail_last_5_weeks">\u00daltimas 5 semanas</string>
+    <string name="detail_edit">Editar</string>
+    <string name="detail_archive">Archivar</string>
+    <string name="detail_restore">Restaurar</string>
+    <string name="detail_delete">Eliminar</string>
+    <string name="detail_reminder">recordatorio %1$s</string>
+    <string name="detail_tap_hint">Toca un d\u00eda para corregirlo</string>
+    <string name="detail_notes_heading">Notas</string>
+    <string name="detail_no_notes">A\u00fan no hay notas \u2014 a\u00f1ade una al completar este h\u00e1bito.</string>
+    <string name="detail_paused_until">En pausa hasta %1$s</string>
+
+    <string name="field_name">Nombre</string>
+    <string name="field_name_placeholder">Paseo nocturno</string>
+    <string name="field_name_error">Escribe un nombre para este h\u00e1bito.</string>
+    <string name="field_icon_color">Icono y color</string>
+    <string name="field_goal_type">Tipo de objetivo</string>
+    <string name="goal_yesno">Completar una vez</string>
+    <string name="goal_counter">Contador</string>
+    <string name="goal_duration">Duraci\u00f3n</string>
+    <string name="field_target">Meta</string>
+    <string name="field_unit">Unidad</string>
+    <string name="field_unit_placeholder">vasos, pasos, p\u00e1ginas\u2026</string>
+    <string name="field_schedule">Horario</string>
+    <string name="schedule_daily">Todos los d\u00edas</string>
+    <string name="schedule_weekdays">D\u00edas laborables</string>
+    <string name="schedule_weekends">Fines de semana</string>
+    <string name="schedule_specific">D\u00edas espec\u00edficos</string>
+    <string name="schedule_interval">Cada X d\u00edas</string>
+    <string name="schedule_times_per_week">X / semana</string>
+    <string name="field_every_x_days">Cada</string>
+    <string name="field_days_suffix">d\u00edas</string>
+    <string name="field_times_per_week">Veces por semana</string>
+    <string name="field_grace">Permitir 1 salto de gracia / semana</string>
+    <string name="field_reminder">Recordatorio</string>
+    <string name="schedule_specific_error">Elige al menos un d\u00eda</string>
+    <string name="btn_save_habit">Guardar h\u00e1bito</string>
+    <string name="btn_delete_habit">Eliminar h\u00e1bito</string>
+
+    <string name="cat_health">Salud</string>
+    <string name="cat_mind">Mente</string>
+    <string name="cat_focus">Enfoque</string>
+    <string name="cat_other">Otro</string>
+
+    <string name="settings_language">Idioma</string>
+    <string name="settings_appearance">Apariencia</string>
+    <string name="settings_theme">Tema</string>
+    <string name="theme_light">Claro</string>
+    <string name="theme_dark">Oscuro</string>
+    <string name="theme_system">Sistema</string>
+    <string name="settings_accent">Color de acento</string>
+    <string name="settings_preferences">Preferencias</string>
+    <string name="settings_week_start">La semana empieza en</string>
+    <string name="settings_reduce_motion">Reducir movimiento</string>
+    <string name="settings_sound">Efectos de sonido</string>
+    <string name="settings_notifications">Notificaciones</string>
+    <string name="notif_granted">Los recordatorios est\u00e1n activados.</string>
+    <string name="notif_denied">Los recordatorios est\u00e1n bloqueados en ajustes del sistema.</string>
+    <string name="notif_default">Los recordatorios a\u00fan no est\u00e1n activados.</string>
+    <string name="btn_enable">Activar</string>
+    <string name="settings_data">Datos</string>
+    <string name="btn_export">Exportar datos</string>
+    <string name="btn_import">Importar datos</string>
+    <string name="btn_reset">Restablecer todo</string>
+    <string name="confirm_reset_title">\u00bfRestablecer todos los datos?</string>
+    <string name="confirm_reset_body">Esto elimina todos los h\u00e1bitos y ajustes de este dispositivo. No se puede deshacer.</string>
+    <string name="settings_about">Acerca de</string>
+    <string name="about_text">Stride \u2014 totalmente local, sin necesidad de cuenta.</string>
+    <string name="import_fail_title">Error al importar</string>
+    <string name="import_fail_body">Ese archivo no parece una copia de seguridad v\u00e1lida.</string>
+    <string name="btn_close">Cerrar</string>
+
+    <string name="onboard1_title">Bienvenido</string>
+    <string name="onboard1_body">Un habit tracker que te muestra tus patrones \u2014 y no te castiga por un mal d\u00eda.</string>
+    <string name="onboard1_cta">Empezar</string>
+    <string name="onboard2_title">Saltos de gracia</string>
+    <string name="onboard2_body">\u00bfFallaste un d\u00eda? Tu primer salto cada semana no romper\u00e1 la racha. La vida pasa \u2014 la app lo tiene en cuenta.</string>
+    <string name="onboard2_cta">Siguiente</string>
+    <string name="onboard3_title">Mant\u00e9nte al d\u00eda</string>
+    <string name="onboard3_body">Activa los recordatorios y te avisaremos a la hora que elijas para cada h\u00e1bito.</string>
+    <string name="onboard3_cta">Activar recordatorios</string>
+    <string name="onboard3_skip">Ahora no</string>
+
+    <string name="milestone_sub">%1$s \u2014 sigue as\u00ed.</string>
+    <string name="milestone_cta">Genial</string>
+
+    <string name="note_modal_title">\u00bfC\u00f3mo te fue?</string>
+    <string name="mood_great">Genial</string>
+    <string name="mood_good">Bien</string>
+    <string name="mood_okay">Regular</string>
+    <string name="mood_hard">Dif\u00edcil</string>
+    <string name="note_placeholder">A\u00f1ade una nota breve (opcional)</string>
+    <string name="btn_save_note">Guardar nota</string>
+    <string name="btn_skip_note">Omitir</string>
+
+    <string name="calendar_habits_for_day">H\u00e1bitos del %1$s</string>
+    <string name="calendar_no_habits">No hay h\u00e1bitos programados este d\u00eda.</string>
+
+    <string name="routines_heading">Rutinas</string>
+    <string name="routines_none">A\u00fan no hay rutinas.</string>
+    <string name="btn_new_routine">Nueva rutina</string>
+    <string name="field_routine_name">Nombre de la rutina</string>
+    <string name="routine_name_placeholder">Rutina matutina</string>
+    <string name="field_routine_time">Momento del d\u00eda</string>
+    <string name="field_routine_habits">H\u00e1bitos en esta rutina</string>
+    <string name="btn_save_routine">Guardar rutina</string>
+    <string name="btn_delete_routine">Eliminar rutina</string>
+
+    <string name="value_modal_title">Registrar %1$s</string>
+    <string name="btn_save_value">Guardar</string>
+    <string name="btn_clear_value">Borrar</string>
+
+    <string name="pause_modal_title">\u00bfPausar %1$s?</string>
+    <string name="pause_modal_body">No contar\u00e1 para las rachas ni las estad\u00edsticas hasta que lo reanudes.</string>
+    <string name="field_resume_date">Reanudar el</string>
+    <string name="btn_pause">Pausar</string>
+
+    <string name="reminder_notification_title">%1$s</string>
+    <string name="reminder_notification_body">Hora de tu h\u00e1bito</string>
+    <string name="reminder_channel_name">Recordatorios de h\u00e1bitos</string>
+    <string name="reminder_channel_desc">Notificaciones para tus recordatorios de h\u00e1bitos programados</string>
+</resources>

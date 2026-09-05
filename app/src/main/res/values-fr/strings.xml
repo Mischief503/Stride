@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Stride</string>
+
+    <string name="nav_today">Aujourd\u2019hui</string>
+    <string name="nav_calendar">Calendrier</string>
+    <string name="nav_insights">Statistiques</string>
+    <string name="nav_habits">Habitudes</string>
+
+    <string name="title_today">Aujourd\u2019hui</string>
+    <string name="title_calendar">Calendrier</string>
+    <string name="title_insights">Statistiques</string>
+    <string name="title_habits">Habitudes</string>
+    <string name="title_settings">R\u00e9glages</string>
+    <string name="title_detail">Habitude</string>
+    <string name="title_add_habit">Nouvelle habitude</string>
+    <string name="title_edit_habit">Modifier l\u2019habitude</string>
+    <string name="title_routine">Routine</string>
+
+    <string name="daily_score_label">Score du jour</string>
+    <plurals name="momentum_days">
+        <item quantity="one">%1$d jour d\u2019\u00e9lan</item>
+        <item quantity="other">%1$d jours d\u2019\u00e9lan</item>
+    </plurals>
+    <plurals name="grace_banner">
+        <item quantity="one">%1$d habitude a encore un saut de gr\u00e2ce cette semaine \u2014 un oubli ne cassera pas la s\u00e9rie.</item>
+        <item quantity="other">%1$d habitudes ont encore un saut de gr\u00e2ce cette semaine \u2014 un oubli ne cassera pas la s\u00e9rie.</item>
+    </plurals>
+
+    <string name="today_empty_title">Cr\u00e9ez votre premi\u00e8re habitude</string>
+    <string name="today_empty_body">Commencez petit \u2014 vous pourrez construire ensuite.</string>
+    <string name="today_empty_cta">Ajouter une habitude</string>
+    <string name="today_perfect_sub">Tout est coch\u00e9 \u2014 \u00e0 demain.</string>
+    <plurals name="today_more_sub">
+        <item quantity="one">Encore %1$d pour une journ\u00e9e parfaite</item>
+        <item quantity="other">Encore %1$d pour une journ\u00e9e parfaite</item>
+    </plurals>
+    <string name="today_group_morning">Matin</string>
+    <string name="today_group_afternoon">Apr\u00e8s-midi</string>
+    <string name="today_group_evening">Soir</string>
+    <string name="today_group_anytime">N\u2019importe quand</string>
+    <string name="today_due">\u00e0 faire aujourd\u2019hui</string>
+    <string name="today_grace_used">gr\u00e2ce utilis\u00e9e</string>
+
+    <string name="toast_marked_done">%1$s marqu\u00e9 comme fait</string>
+    <string name="toast_undo">Annuler</string>
+    <string name="toast_add_note">Ajouter une note</string>
+
+    <string name="menu_use_grace">Utiliser un saut de gr\u00e2ce</string>
+    <string name="menu_view_insights">Voir les statistiques</string>
+    <string name="menu_edit">Modifier l\u2019habitude</string>
+    <string name="menu_archive">Archiver l\u2019habitude</string>
+    <string name="menu_restore">Restaurer l\u2019habitude</string>
+    <string name="menu_delete">Supprimer d\u00e9finitivement</string>
+    <string name="menu_cancel">Annuler</string>
+    <string name="menu_log_note">Ajouter une note</string>
+    <string name="menu_log_value">Enregistrer une valeur</string>
+    <string name="menu_pause">Mettre en pause</string>
+    <string name="menu_resume">Reprendre l\u2019habitude</string>
+
+    <string name="confirm_archive_title">Archiver %1$s\u00a0?</string>
+    <string name="confirm_archive_body">Elle quittera Aujourd\u2019hui et Habitudes jusqu\u2019\u00e0 ce que vous la restauriez.</string>
+    <string name="confirm_delete_title">Supprimer %1$s d\u00e9finitivement\u00a0?</string>
+    <string name="confirm_delete_body">Tout son historique sera supprim\u00e9. Action irr\u00e9versible.</string>
+    <string name="btn_cancel">Annuler</string>
+    <string name="btn_archive">Archiver</string>
+    <string name="btn_delete">Supprimer</string>
+
+    <string name="insights_all">Toutes les habitudes</string>
+    <string name="insights_weekly_consistency">R\u00e9gularit\u00e9 hebdomadaire</string>
+    <string name="insights_across">sur %1$d habitudes</string>
+    <string name="insights_completion_rate">Taux de r\u00e9ussite</string>
+    <string name="insights_last_5_weeks">5 derni\u00e8res semaines</string>
+    <string name="insights_by_day">Par jour de la semaine</string>
+    <string name="insights_best_habit">%1$s a votre meilleur taux de r\u00e9ussite \u00e0 %2$d%%.</string>
+    <string name="insights_best_day">%1$s est votre meilleur jour pour cette habitude.</string>
+    <string name="insights_needs_attention">%1$s m\u00e9riterait un peu plus d\u2019attention \u2014 %2$d%%.</string>
+    <string name="insights_lowdata_title">Les tendances prennent quelques jours</string>
+    <string name="insights_lowdata_body">Cochez chaque jour et les statistiques se d\u00e9bloquent automatiquement.</string>
+    <string name="insights_days_logged">Jours enregistr\u00e9s</string>
+    <string name="insights_no_habits_title">Pas encore d\u2019habitude</string>
+    <string name="insights_no_habits_body">Ajoutez une habitude dans l\u2019onglet Aujourd\u2019hui pour voir des tendances.</string>
+
+    <string name="habits_search_placeholder">Rechercher une habitude</string>
+    <string name="habits_active">Actives</string>
+    <string name="habits_archived">Archiv\u00e9es</string>
+    <string name="habits_none">Pas encore d\u2019habitude. Touchez + pour en ajouter une.</string>
+    <string name="habits_no_results">Aucune habitude ne correspond \u00e0 votre recherche.</string>
+    <string name="habits_weekly_progress">%1$d/%2$d cette semaine</string>
+
+    <string name="detail_current_streak">S\u00e9rie actuelle</string>
+    <string name="detail_longest_streak">Plus longue s\u00e9rie</string>
+    <string name="detail_30_day_rate">Taux sur 30 jours</string>
+    <string name="detail_last_5_weeks">5 derni\u00e8res semaines</string>
+    <string name="detail_edit">Modifier</string>
+    <string name="detail_archive">Archiver</string>
+    <string name="detail_restore">Restaurer</string>
+    <string name="detail_delete">Supprimer</string>
+    <string name="detail_reminder">rappel %1$s</string>
+    <string name="detail_tap_hint">Touchez un jour pour le corriger</string>
+    <string name="detail_notes_heading">Notes</string>
+    <string name="detail_no_notes">Pas encore de note \u2014 ajoutez-en une apr\u00e8s avoir termin\u00e9 cette habitude.</string>
+    <string name="detail_paused_until">En pause jusqu\u2019au %1$s</string>
+
+    <string name="field_name">Nom</string>
+    <string name="field_name_placeholder">Marche du soir</string>
+    <string name="field_name_error">Entrez un nom pour cette habitude.</string>
+    <string name="field_icon_color">Ic\u00f4ne et couleur</string>
+    <string name="field_goal_type">Type d\u2019objectif</string>
+    <string name="goal_yesno">Compl\u00e9ter une fois</string>
+    <string name="goal_counter">Compteur</string>
+    <string name="goal_duration">Dur\u00e9e</string>
+    <string name="field_target">Objectif</string>
+    <string name="field_unit">Unit\u00e9</string>
+    <string name="field_unit_placeholder">verres, pas, pages\u2026</string>
+    <string name="field_schedule">Fr\u00e9quence</string>
+    <string name="schedule_daily">Tous les jours</string>
+    <string name="schedule_weekdays">Jours de semaine</string>
+    <string name="schedule_weekends">Week-ends</string>
+    <string name="schedule_specific">Jours pr\u00e9cis</string>
+    <string name="schedule_interval">Tous les X jours</string>
+    <string name="schedule_times_per_week">X / semaine</string>
+    <string name="field_every_x_days">Tous les</string>
+    <string name="field_days_suffix">jours</string>
+    <string name="field_times_per_week">Fois par semaine</string>
+    <string name="field_grace">Autoriser 1 saut de gr\u00e2ce / semaine</string>
+    <string name="field_reminder">Rappel</string>
+    <string name="schedule_specific_error">Choisissez au moins un jour</string>
+    <string name="btn_save_habit">Enregistrer l\u2019habitude</string>
+    <string name="btn_delete_habit">Supprimer l\u2019habitude</string>
+
+    <string name="cat_health">Sant\u00e9</string>
+    <string name="cat_mind">Esprit</string>
+    <string name="cat_focus">Concentration</string>
+    <string name="cat_other">Autre</string>
+
+    <string name="settings_language">Langue</string>
+    <string name="settings_appearance">Apparence</string>
+    <string name="settings_theme">Th\u00e8me</string>
+    <string name="theme_light">Clair</string>
+    <string name="theme_dark">Sombre</string>
+    <string name="theme_system">Syst\u00e8me</string>
+    <string name="settings_accent">Couleur d\u2019accent</string>
+    <string name="settings_preferences">Pr\u00e9f\u00e9rences</string>
+    <string name="settings_week_start">La semaine commence le</string>
+    <string name="settings_reduce_motion">R\u00e9duire les animations</string>
+    <string name="settings_sound">Effets sonores</string>
+    <string name="settings_notifications">Notifications</string>
+    <string name="notif_granted">Les rappels sont activ\u00e9s.</string>
+    <string name="notif_denied">Les rappels sont bloqu\u00e9s dans les r\u00e9glages syst\u00e8me.</string>
+    <string name="notif_default">Les rappels ne sont pas encore activ\u00e9s.</string>
+    <string name="btn_enable">Activer</string>
+    <string name="settings_data">Donn\u00e9es</string>
+    <string name="btn_export">Exporter les donn\u00e9es</string>
+    <string name="btn_import">Importer des donn\u00e9es</string>
+    <string name="btn_reset">R\u00e9initialiser</string>
+    <string name="confirm_reset_title">R\u00e9initialiser toutes les donn\u00e9es\u00a0?</string>
+    <string name="confirm_reset_body">Cela supprime toutes les habitudes et r\u00e9glages de cet appareil. Action irr\u00e9versible.</string>
+    <string name="settings_about">\u00c0 propos</string>
+    <string name="about_text">Stride \u2014 enti\u00e8rement local, sans compte requis.</string>
+    <string name="import_fail_title">\u00c9chec de l\u2019import</string>
+    <string name="import_fail_body">Ce fichier ne ressemble pas \u00e0 une sauvegarde valide.</string>
+    <string name="btn_close">Fermer</string>
+
+    <string name="onboard1_title">Bienvenue</string>
+    <string name="onboard1_body">Un habit tracker qui montre vos tendances \u2014 et ne vous punit pas pour un mauvais jour.</string>
+    <string name="onboard1_cta">Commencer</string>
+    <string name="onboard2_title">Sauts de gr\u00e2ce</string>
+    <string name="onboard2_body">Un jour manqu\u00e9\u00a0? Votre premier saut chaque semaine ne cassera pas la s\u00e9rie. La vie arrive \u2014 l\u2019appli en tient compte.</string>
+    <string name="onboard2_cta">Suivant</string>
+    <string name="onboard3_title">Restez sur la bonne voie</string>
+    <string name="onboard3_body">Activez les rappels et nous vous notifierons aux horaires choisis pour chaque habitude.</string>
+    <string name="onboard3_cta">Activer les rappels</string>
+    <string name="onboard3_skip">Plus tard</string>
+
+    <string name="milestone_sub">%1$s \u2014 continuez comme \u00e7a.</string>
+    <string name="milestone_cta">Bien jou\u00e9</string>
+
+    <string name="note_modal_title">Comment \u00e7a s\u2019est pass\u00e9\u00a0?</string>
+    <string name="mood_great">Super</string>
+    <string name="mood_good">Bien</string>
+    <string name="mood_okay">Moyen</string>
+    <string name="mood_hard">Difficile</string>
+    <string name="note_placeholder">Ajoutez une courte note (facultatif)</string>
+    <string name="btn_save_note">Enregistrer la note</string>
+    <string name="btn_skip_note">Passer</string>
+
+    <string name="calendar_habits_for_day">Habitudes du %1$s</string>
+    <string name="calendar_no_habits">Aucune habitude pr\u00e9vue ce jour.</string>
+
+    <string name="routines_heading">Routines</string>
+    <string name="routines_none">Aucune routine pour le moment.</string>
+    <string name="btn_new_routine">Nouvelle routine</string>
+    <string name="field_routine_name">Nom de la routine</string>
+    <string name="routine_name_placeholder">Routine du matin</string>
+    <string name="field_routine_time">Moment de la journ\u00e9e</string>
+    <string name="field_routine_habits">Habitudes de cette routine</string>
+    <string name="btn_save_routine">Enregistrer la routine</string>
+    <string name="btn_delete_routine">Supprimer la routine</string>
+
+    <string name="value_modal_title">Enregistrer %1$s</string>
+    <string name="btn_save_value">Enregistrer</string>
+    <string name="btn_clear_value">Effacer</string>
+
+    <string name="pause_modal_title">Mettre %1$s en pause\u00a0?</string>
+    <string name="pause_modal_body">Elle ne comptera pas pour les s\u00e9ries ni les statistiques tant que vous ne la reprenez pas.</string>
+    <string name="field_resume_date">Reprendre le</string>
+    <string name="btn_pause">Mettre en pause</string>
+
+    <string name="reminder_notification_title">%1$s</string>
+    <string name="reminder_notification_body">C\u2019est l\u2019heure de votre habitude</string>
+    <string name="reminder_channel_name">Rappels d\u2019habitudes</string>
+    <string name="reminder_channel_desc">Notifications pour vos rappels d\u2019habitudes programm\u00e9s</string>
+</resources>
