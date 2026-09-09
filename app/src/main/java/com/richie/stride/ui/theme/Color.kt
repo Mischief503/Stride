@@ -27,10 +27,10 @@ enum class AccentOption(val color: Color, val tint: Color, val onTint: Color) {
 
 // Category colors (fixed, not user-selectable)
 enum class CategoryColor(val color: Color, val tint: Color, val onTint: Color) {
-    HEALTH(Color(0xFF1EAE98), Color(0x261EAE98), Color(0xFF0E7A67)),
-    MIND(Color(0xFFFF6B4A), Color(0x26FF6B4A), Color(0xFFC64726)),
-    FOCUS(Color(0xFFFFB627), Color(0x33FFB627), Color(0xFF8A5A00)),
-    OTHER(Color(0xFF8C6FF7), Color(0x268C6FF7), Color(0xFF5B3FC4))
+    MIND(Color(0xFF8C6FF7), Color(0x268C6FF7), Color(0xFF5B3FC4)),
+    EXERCISE(Color(0xFF1EAE98), Color(0x261EAE98), Color(0xFF0E7A67)),
+    FOOD(Color(0xFFFFB627), Color(0x33FFB627), Color(0xFF8A5A00)),
+    SELF_CARE(Color(0xFFFF6B4A), Color(0x26FF6B4A), Color(0xFFC64726))
 }
 
 val DangerColor = Color(0xFFC64726)

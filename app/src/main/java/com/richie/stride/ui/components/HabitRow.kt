@@ -45,8 +45,10 @@ fun HabitRow(
     onToggle: () -> Unit,
     onStep: (Int) -> Unit,
     onMenu: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    displayName: String? = null
 ) {
+    val name = displayName ?: habit.name
     val done = StatsCalculator.isDoneOn(habit, completion)
     val grace = StatsCalculator.isGraceOn(completion)
     val colors = habit.category.colorSet()
@@ -61,7 +63,7 @@ fun HabitRow(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(habit.name, style = MaterialTheme.typography.bodyMedium)
+                    Text(name, style = MaterialTheme.typography.bodyMedium)
                     IconButton(onClick = onMenu) { Icon(Icons.Filled.MoreVert, contentDescription = "More") }
                 }
                 Row(Modifier.fillMaxWidth().padding(top = 8.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -123,7 +125,7 @@ fun HabitRow(
                 if (done) Icon(Icons.Filled.Check, contentDescription = "Done", tint = Color.White)
             }
             Text(
-                habit.name,
+                name,
                 modifier = Modifier
                     .weight(1f)
                     .padding(start = 10.dp),

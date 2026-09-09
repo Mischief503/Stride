@@ -13,8 +13,10 @@ object Destinations {
     fun detail(habitId: String) = "detail/$habitId"
 
     const val ADD_EDIT_ARG = "habitId"
-    const val ADD_EDIT = "addEdit?$ADD_EDIT_ARG={$ADD_EDIT_ARG}"
+    const val ADD_EDIT_DATE_ARG = "startDate"
+    const val ADD_EDIT = "addEdit?$ADD_EDIT_ARG={$ADD_EDIT_ARG}&$ADD_EDIT_DATE_ARG={$ADD_EDIT_DATE_ARG}"
     fun addHabit() = "addEdit"
+    fun addHabit(startDate: java.time.LocalDate) = "addEdit?$ADD_EDIT_DATE_ARG=$startDate"
     fun editHabit(habitId: String) = "addEdit?$ADD_EDIT_ARG=$habitId"
 
     const val ROUTINE_EDIT_ARG = "routineId"

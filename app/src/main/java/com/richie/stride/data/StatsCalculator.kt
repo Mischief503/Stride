@@ -16,6 +16,7 @@ object StatsCalculator {
 
     fun isDueOn(habit: Habit, date: LocalDate): Boolean {
         if (isPaused(habit, date)) return false
+        if (date.isBefore(habit.createdAt)) return false
         return when (habit.schedule.type) {
             ScheduleType.DAILY -> true
             ScheduleType.WEEKDAYS -> date.dayOfWeek != DayOfWeek.SATURDAY && date.dayOfWeek != DayOfWeek.SUNDAY
@@ -34,6 +35,14 @@ object StatsCalculator {
     fun isDoneOn(habit: Habit, completion: Completion?): Boolean {
         if (completion == null || completion.isGrace) return false
         return if (habit.goalType == GoalType.YES_NO) completion.value >= 1 else completion.value >= habit.target
+    }
+
+    /** A habit counts as done for the day only when every one of its slots is done - a
+     *  single-slot habit (still the common case) behaves identically to isDoneOn on its one
+     *  slot. Used for aggregate stats (Daily Score, momentum, Calendar day coloring); per-row
+     *  completion status on Today still checks one slot at a time via isDoneOn directly. */
+    fun isFullyDoneOn(habit: Habit, completionsBySlot: Map<String, Map<LocalDate, Completion>>, date: LocalDate): Boolean {
+        return habit.slots.all { slot -> isDoneOn(habit, completionsBySlot[slot.id]?.get(date)) }
     }
 
     fun startOfWeek(date: LocalDate, weekStart: DayOfWeek): LocalDate {
@@ -198,7 +207,7 @@ object StatsCalculator {
     /** App-wide momentum: consecutive days where at least one due habit was completed. */
     fun momentumStreak(
         habits: List<Habit>,
-        completionsByHabit: Map<String, Map<LocalDate, Completion>>,
+        completionsBySlotByHabit: Map<String, Map<String, Map<LocalDate, Completion>>>,
         today: LocalDate = LocalDate.now()
     ): Int {
         var streak = 0
@@ -207,7 +216,7 @@ object StatsCalculator {
         while (guard < 3650) {
             guard++
             val due = habits.filter { isDueOn(it, d) }
-            val doneCount = due.count { isDoneOn(it, completionsByHabit[it.id]?.get(d)) }
+            val doneCount = due.count { isFullyDoneOn(it, completionsBySlotByHabit[it.id] ?: emptyMap(), d) }
             if (doneCount > 0) { streak++; d = d.minusDays(1); continue }
             if (d == today) { d = d.minusDays(1); continue }
             break

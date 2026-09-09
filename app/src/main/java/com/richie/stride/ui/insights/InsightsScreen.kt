@@ -122,6 +122,42 @@ fun InsightsScreen(viewModel: MainViewModel) {
                             Text(rate?.let { "$it%" } ?: "\u2014", style = MaterialTheme.typography.headlineSmall)
                         }
                     }
+
+                    if (selectedHabit.hasMultipleSlots) {
+                        val slotRates = selectedHabit.slots.mapIndexedNotNull { index, slot ->
+                            val slotCompletions = state.completionsBySlot[selectedHabit.id]?.get(slot.id) ?: emptyMap()
+                            StatsCalculator.completionRate(selectedHabit, slotCompletions, 30, today)?.let { r ->
+                                Triple(slot.label.ifBlank { "Time ${index + 1}" }, r, slot.id)
+                            }
+                        }
+                        val bestSlot = slotRates.maxByOrNull { it.second }
+                        val worstSlot = slotRates.minByOrNull { it.second }
+                        if (slotRates.size >= 2 && bestSlot != null && worstSlot != null) {
+                            Card(Modifier.fillMaxWidth().padding(bottom = 12.dp)) {
+                                Column(Modifier.padding(14.dp)) {
+                                    Text("By time of day", style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(bottom = 8.dp))
+                                    slotRates.sortedByDescending { it.second }.forEach { (label, r, _) ->
+                                        Row(
+                                            Modifier.fillMaxWidth().padding(vertical = 2.dp),
+                                            horizontalArrangement = Arrangement.SpaceBetween
+                                        ) {
+                                            Text(label, style = MaterialTheme.typography.bodyMedium)
+                                            Text("$r%", style = MaterialTheme.typography.bodyMedium)
+                                        }
+                                    }
+                                    if (bestSlot.third != worstSlot.third && bestSlot.second != worstSlot.second) {
+                                        Text(
+                                            "You're more consistent with ${bestSlot.first} (${bestSlot.second}%) than ${worstSlot.first} (${worstSlot.second}%).",
+                                            style = MaterialTheme.typography.bodySmall,
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                            modifier = Modifier.padding(top = 8.dp)
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                     Text("Last 5 weeks", style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(bottom = 4.dp))
                     HeatmapGrid(cells = cells, doneColor = selectedHabit.category.colorSet().color, onCellClick = {}, modifier = Modifier.padding(bottom = 16.dp))
                     Text("By day of week", style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(bottom = 6.dp))

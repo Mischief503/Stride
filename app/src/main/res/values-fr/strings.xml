@@ -129,10 +129,10 @@
     <string name="btn_save_habit">Enregistrer l\u2019habitude</string>
     <string name="btn_delete_habit">Supprimer l\u2019habitude</string>
 
-    <string name="cat_health">Sant\u00e9</string>
     <string name="cat_mind">Esprit</string>
-    <string name="cat_focus">Concentration</string>
-    <string name="cat_other">Autre</string>
+    <string name="cat_exercise">Exercice</string>
+    <string name="cat_food">Alimentation</string>
+    <string name="cat_self_care">Soins personnels</string>
 
     <string name="settings_language">Langue</string>
     <string name="settings_appearance">Apparence</string>

@@ -129,10 +129,10 @@
     <string name="btn_save_habit">Guardar h\u00e1bito</string>
     <string name="btn_delete_habit">Eliminar h\u00e1bito</string>
 
-    <string name="cat_health">Salud</string>
     <string name="cat_mind">Mente</string>
-    <string name="cat_focus">Enfoque</string>
-    <string name="cat_other">Otro</string>
+    <string name="cat_exercise">Ejercicio</string>
+    <string name="cat_food">Comida</string>
+    <string name="cat_self_care">Autocuidado</string>
 
     <string name="settings_language">Idioma</string>
     <string name="settings_appearance">Apariencia</string>

@@ -2,10 +2,12 @@ package com.richie.stride.util
 
 import com.richie.stride.data.Category
 import com.richie.stride.data.Completion
+import com.richie.stride.data.DEFAULT_SLOT_ID
 import com.richie.stride.data.GoalType
 import com.richie.stride.data.Habit
 import com.richie.stride.data.HabitNote
 import com.richie.stride.data.HabitRepository
+import com.richie.stride.data.HabitSlot
 import com.richie.stride.data.Mood
 import com.richie.stride.data.Routine
 import com.richie.stride.data.Schedule
@@ -23,12 +25,15 @@ class BackupManager(private val repository: HabitRepository) {
 
     suspend fun exportJson(): String {
         val habits = repository.habits.first()
-        val completions = repository.completionsByHabit.first().values.flatMap { it.values }
+        // Slot-aware source, so a future multi-occurrence habit's full data gets backed up,
+        // not just its default slot.
+        val completions = repository.completionsBySlot.first()
+            .values.flatMap { bySlot -> bySlot.values.flatMap { it.values } }
         val notes = repository.allNotes.first()
         val routines = repository.routines.first()
 
         val root = JSONObject()
-        root.put("version", 1)
+        root.put("version", 2)
 
         val habitsArr = JSONArray()
         habits.forEach { h -> habitsArr.put(habitToJson(h)) }
@@ -38,6 +43,7 @@ class BackupManager(private val repository: HabitRepository) {
         completions.forEach { c ->
             completionsArr.put(JSONObject().apply {
                 put("habitId", c.habitId)
+                put("slotId", c.slotId)
                 put("date", c.date.toString())
                 put("value", c.value)
                 put("isGrace", c.isGrace)
@@ -83,7 +89,15 @@ class BackupManager(private val repository: HabitRepository) {
         put("scheduleInterval", h.schedule.interval)
         put("scheduleTimesPerWeek", h.schedule.timesPerWeek)
         put("grace", h.grace)
-        put("reminderTime", h.reminderTime?.toString() ?: JSONObject.NULL)
+        val slotsArr = JSONArray()
+        h.slots.forEach { slot ->
+            slotsArr.put(JSONObject().apply {
+                put("id", slot.id)
+                put("label", slot.label)
+                put("reminderTime", slot.reminderTime?.toString() ?: JSONObject.NULL)
+            })
+        }
+        put("slots", slotsArr)
         put("archived", h.archived)
         put("pausedUntil", h.pausedUntil?.toString() ?: JSONObject.NULL)
         put("createdAt", h.createdAt.toString())
@@ -113,12 +127,36 @@ class BackupManager(private val repository: HabitRepository) {
                 (0 until arr.length()).mapNotNull { idx -> arr.optInt(idx, -1).takeIf { it in 1..7 } }.toSet()
             } ?: emptySet()
 
+            // Prefer the current "slots" array. Fall back to the legacy single "reminderTime"
+            // field so a backup exported before slots existed still imports correctly.
+            val slotsArr = obj.optJSONArray("slots")
+            val slots = if (slotsArr != null && slotsArr.length() > 0) {
+                (0 until slotsArr.length()).mapNotNull { idx ->
+                    val slotObj = slotsArr.optJSONObject(idx) ?: return@mapNotNull null
+                    HabitSlot(
+                        id = slotObj.optString("id", "").ifBlank { DEFAULT_SLOT_ID },
+                        label = slotObj.optString("label", ""),
+                        reminderTime = slotObj.optString("reminderTime", "").ifBlank { null }
+                            ?.let { runCatching { LocalTime.parse(it) }.getOrNull() }
+                    )
+                }
+            } else {
+                listOf(
+                    HabitSlot(
+                        id = DEFAULT_SLOT_ID,
+                        label = "",
+                        reminderTime = obj.optString("reminderTime", "").ifBlank { null }
+                            ?.let { runCatching { LocalTime.parse(it) }.getOrNull() }
+                    )
+                )
+            }
+
             habits.add(
                 Habit(
                     id = id,
                     name = name,
                     category = runCatching { Category.valueOf(obj.optString("category", "OTHER")) }
-                        .getOrDefault(Category.OTHER),
+                        .getOrDefault(Category.SELF_CARE),
                     goalType = runCatching { GoalType.valueOf(obj.optString("goalType", "YES_NO")) }
                         .getOrDefault(GoalType.YES_NO),
                     target = obj.optInt("target", 1).coerceAtLeast(1),
@@ -131,8 +169,7 @@ class BackupManager(private val repository: HabitRepository) {
                         timesPerWeek = obj.optInt("scheduleTimesPerWeek", 3).coerceIn(1, 7)
                     ),
                     grace = obj.optBoolean("grace", false),
-                    reminderTime = obj.optString("reminderTime", "").ifBlank { null }
-                        ?.let { runCatching { LocalTime.parse(it) }.getOrNull() },
+                    slots = slots.ifEmpty { listOf(HabitSlot(DEFAULT_SLOT_ID, "", null)) },
                     archived = obj.optBoolean("archived", false),
                     pausedUntil = obj.optString("pausedUntil", "").ifBlank { null }
                         ?.let { runCatching { LocalDate.parse(it) }.getOrNull() },
@@ -143,6 +180,7 @@ class BackupManager(private val repository: HabitRepository) {
         }
 
         val validHabitIds = habits.map { it.id }.toSet()
+        val validSlotIdsByHabit = habits.associate { it.id to it.slots.map { s -> s.id }.toSet() }
 
         val completions = mutableListOf<Completion>()
         root.optJSONArray("completions")?.let { arr ->
@@ -152,9 +190,14 @@ class BackupManager(private val repository: HabitRepository) {
                 if (habitId !in validHabitIds) continue
                 val date = obj.optString("date", "").ifBlank { null }
                     ?.let { runCatching { LocalDate.parse(it) }.getOrNull() } ?: continue
+                // Legacy backups (pre-slots) have no slotId at all - default to the habit's
+                // own default slot rather than dropping the completion.
+                val slotId = obj.optString("slotId", "").ifBlank { DEFAULT_SLOT_ID }
+                if (slotId !in (validSlotIdsByHabit[habitId] ?: emptySet())) continue
                 completions.add(
                     Completion(
                         habitId = habitId,
+                        slotId = slotId,
                         date = date,
                         value = obj.optInt("value", 0),
                         isGrace = obj.optBoolean("isGrace", false)

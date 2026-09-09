@@ -15,27 +15,29 @@ class ReminderReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         val habitId = intent.getStringExtra(EXTRA_HABIT_ID) ?: return
+        val slotId = intent.getStringExtra(EXTRA_SLOT_ID) ?: return
         val habitName = intent.getStringExtra(EXTRA_HABIT_NAME) ?: return
         val hour = intent.getIntExtra(EXTRA_HOUR, -1)
         val minute = intent.getIntExtra(EXTRA_MINUTE, -1)
 
-        showNotification(context, habitId, habitName)
+        showNotification(context, habitId, slotId, habitName)
 
         // Reschedule for the same time tomorrow, keeping the daily reminder alive.
         if (hour in 0..23 && minute in 0..59) {
-            ReminderScheduler.schedule(context, habitId, habitName, hour, minute)
+            ReminderScheduler.schedule(context, habitId, slotId, habitName, hour, minute)
         }
     }
 
-    private fun showNotification(context: Context, habitId: String, habitName: String) {
+    private fun showNotification(context: Context, habitId: String, slotId: String, habitName: String) {
         ensureChannel(context)
+        val notificationKey = "$habitId:$slotId".hashCode()
 
         val openIntent = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
         val pendingIntent = PendingIntent.getActivity(
             context,
-            habitId.hashCode(),
+            notificationKey,
             openIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
@@ -50,7 +52,7 @@ class ReminderReceiver : BroadcastReceiver() {
             .build()
 
         val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        manager.notify(habitId.hashCode(), notification)
+        manager.notify(notificationKey, notification)
     }
 
     private fun ensureChannel(context: Context) {
@@ -72,6 +74,7 @@ class ReminderReceiver : BroadcastReceiver() {
     companion object {
         const val CHANNEL_ID = "habit_reminders"
         const val EXTRA_HABIT_ID = "habit_id"
+        const val EXTRA_SLOT_ID = "slot_id"
         const val EXTRA_HABIT_NAME = "habit_name"
         const val EXTRA_HOUR = "hour"
         const val EXTRA_MINUTE = "minute"

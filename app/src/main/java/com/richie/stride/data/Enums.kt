@@ -4,7 +4,7 @@ enum class GoalType { YES_NO, COUNTER, DURATION }
 
 enum class ScheduleType { DAILY, WEEKDAYS, WEEKENDS, SPECIFIC, INTERVAL, TIMES_PER_WEEK }
 
-enum class Category { HEALTH, MIND, FOCUS, OTHER }
+enum class Category { MIND, EXERCISE, FOOD, SELF_CARE }
 
 enum class ThemeMode { LIGHT, DARK, SYSTEM }
 

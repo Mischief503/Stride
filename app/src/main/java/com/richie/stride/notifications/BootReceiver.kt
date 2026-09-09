@@ -20,9 +20,11 @@ class BootReceiver : BroadcastReceiver() {
         // Re-arm every habit's reminder alarm; a reboot wipes AlarmManager's pending alarms.
         GlobalScope.launch {
             val habits = app.repository.habits.first()
-            habits.filter { !it.archived && it.reminderTime != null }.forEach { habit ->
-                val time = habit.reminderTime!!
-                ReminderScheduler.schedule(appContext, habit.id, habit.name, time.hour, time.minute)
+            habits.filter { !it.archived }.forEach { habit ->
+                habit.slots.forEach { slot ->
+                    val time = slot.reminderTime ?: return@forEach
+                    ReminderScheduler.schedule(appContext, habit.id, slot.id, habit.name, time.hour, time.minute)
+                }
             }
         }
     }

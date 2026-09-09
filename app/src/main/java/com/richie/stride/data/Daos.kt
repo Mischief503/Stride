@@ -49,8 +49,8 @@ interface CompletionDao {
     @Query("SELECT * FROM completions")
     suspend fun getAllOnce(): List<CompletionEntity>
 
-    @Query("SELECT * FROM completions WHERE habitId = :habitId AND date = :date LIMIT 1")
-    suspend fun get(habitId: String, date: String): CompletionEntity?
+    @Query("SELECT * FROM completions WHERE habitId = :habitId AND slotId = :slotId AND date = :date LIMIT 1")
+    suspend fun get(habitId: String, slotId: String, date: String): CompletionEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsert(completion: CompletionEntity)
@@ -58,13 +58,34 @@ interface CompletionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsertAll(completions: List<CompletionEntity>)
 
-    @Query("DELETE FROM completions WHERE habitId = :habitId AND date = :date")
-    suspend fun delete(habitId: String, date: String)
+    @Query("DELETE FROM completions WHERE habitId = :habitId AND slotId = :slotId AND date = :date")
+    suspend fun delete(habitId: String, slotId: String, date: String)
 
     @Query("DELETE FROM completions WHERE habitId = :habitId")
     suspend fun deleteForHabit(habitId: String)
 
+    @Query("DELETE FROM completions WHERE habitId = :habitId AND slotId = :slotId")
+    suspend fun deleteForSlot(habitId: String, slotId: String)
+
     @Query("DELETE FROM completions")
+    suspend fun deleteAll()
+}
+
+@Dao
+interface HabitSlotDao {
+    @Query("SELECT * FROM habit_slots ORDER BY sortOrder ASC")
+    fun observeAll(): Flow<List<HabitSlotEntity>>
+
+    @Query("SELECT * FROM habit_slots WHERE habitId = :habitId ORDER BY sortOrder ASC")
+    suspend fun getForHabit(habitId: String): List<HabitSlotEntity>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun upsertAll(slots: List<HabitSlotEntity>)
+
+    @Query("DELETE FROM habit_slots WHERE habitId = :habitId")
+    suspend fun clearForHabit(habitId: String)
+
+    @Query("DELETE FROM habit_slots")
     suspend fun deleteAll()
 }
 

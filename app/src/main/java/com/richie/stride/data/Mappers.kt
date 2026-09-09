@@ -3,13 +3,14 @@ package com.richie.stride.data
 import java.time.LocalDate
 import java.time.LocalTime
 
-fun HabitEntity.toDomain(): Habit {
+/** Slots must be passed in separately - they live in their own table, not on HabitEntity. */
+fun HabitEntity.toDomain(slots: List<HabitSlot>): Habit {
     val days = if (scheduleDays.isBlank()) emptySet() else
         scheduleDays.split(",").mapNotNull { it.trim().toIntOrNull() }.toSet()
     return Habit(
         id = id,
         name = name,
-        category = runCatching { Category.valueOf(category) }.getOrDefault(Category.OTHER),
+        category = runCatching { Category.valueOf(category) }.getOrDefault(Category.SELF_CARE),
         goalType = runCatching { GoalType.valueOf(goalType) }.getOrDefault(GoalType.YES_NO),
         target = target,
         unit = unit,
@@ -20,7 +21,7 @@ fun HabitEntity.toDomain(): Habit {
             timesPerWeek = scheduleTimesPerWeek
         ),
         grace = grace,
-        reminderTime = reminderTime?.let { runCatching { LocalTime.parse(it) }.getOrNull() },
+        slots = slots.ifEmpty { listOf(HabitSlot(DEFAULT_SLOT_ID, "", null)) },
         archived = archived,
         pausedUntil = pausedUntil?.let { runCatching { LocalDate.parse(it) }.getOrNull() },
         createdAt = runCatching { LocalDate.parse(createdAt) }.getOrDefault(LocalDate.now())
@@ -39,14 +40,29 @@ fun Habit.toEntity(): HabitEntity = HabitEntity(
     scheduleInterval = schedule.interval,
     scheduleTimesPerWeek = schedule.timesPerWeek,
     grace = grace,
-    reminderTime = reminderTime?.toString(),
+    reminderTime = null, // legacy column, no longer read - see HabitEntity's own comment
     archived = archived,
     pausedUntil = pausedUntil?.toString(),
     createdAt = createdAt.toString()
 )
 
+fun HabitSlotEntity.toDomain(): HabitSlot = HabitSlot(
+    id = slotId,
+    label = label,
+    reminderTime = reminderTime?.let { runCatching { LocalTime.parse(it) }.getOrNull() }
+)
+
+fun HabitSlot.toEntity(habitId: String, sortOrder: Int): HabitSlotEntity = HabitSlotEntity(
+    habitId = habitId,
+    slotId = id,
+    label = label,
+    reminderTime = reminderTime?.toString(),
+    sortOrder = sortOrder
+)
+
 fun CompletionEntity.toDomain(): Completion = Completion(
     habitId = habitId,
+    slotId = slotId,
     date = LocalDate.parse(date),
     value = value,
     isGrace = isGrace
@@ -54,6 +70,7 @@ fun CompletionEntity.toDomain(): Completion = Completion(
 
 fun Completion.toEntity(): CompletionEntity = CompletionEntity(
     habitId = habitId,
+    slotId = slotId,
     date = date.toString(),
     value = value,
     isGrace = isGrace

@@ -129,10 +129,10 @@
     <string name="btn_save_habit">Save habit</string>
     <string name="btn_delete_habit">Delete habit</string>
 
-    <string name="cat_health">Health</string>
     <string name="cat_mind">Mind</string>
-    <string name="cat_focus">Focus</string>
-    <string name="cat_other">Other</string>
+    <string name="cat_exercise">Exercise</string>
+    <string name="cat_food">Food</string>
+    <string name="cat_self_care">Self-care</string>
 
     <string name="settings_language">Language</string>
     <string name="settings_appearance">Appearance</string>

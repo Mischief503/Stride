@@ -1,9 +1,11 @@
 package com.richie.stride.ui.settings
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
+import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
@@ -27,6 +29,7 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -36,10 +39,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import com.richie.stride.data.AppLanguage
 import com.richie.stride.data.ThemeMode
+import com.richie.stride.notifications.ReminderScheduler
 import com.richie.stride.ui.ImportResult
 import com.richie.stride.ui.MainViewModel
 import com.richie.stride.ui.components.ConfirmDialog
@@ -64,6 +71,22 @@ fun SettingsScreen(viewModel: MainViewModel, onResetDone: () -> Unit) {
     val notifGranted = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
     } else true
+
+    // Exact-alarm access is a special "app access" setting the user grants from system
+    // Settings, not a normal in-app permission dialog - so there's no ActivityResultContract
+    // callback for it. Instead, re-check on every ON_RESUME, since that's when the user
+    // would be returning from having granted (or denied) it there.
+    var exactAlarmGranted by remember { mutableStateOf(ReminderScheduler.canScheduleExact(context)) }
+    val lifecycleOwner = LocalLifecycleOwner.current
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME) {
+                exactAlarmGranted = ReminderScheduler.canScheduleExact(context)
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
+    }
 
     val notifPermissionLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { }
 
@@ -158,6 +181,23 @@ fun SettingsScreen(viewModel: MainViewModel, onResetDone: () -> Unit) {
                         onClick = { notifPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS) },
                         modifier = Modifier.padding(top = 8.dp)
                     ) { Text("Enable") }
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !exactAlarmGranted) {
+                    Text(
+                        "Without exact alarm access, reminders may arrive a bit late instead of right on time.",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(top = 10.dp)
+                    )
+                    OutlinedButton(
+                        onClick = {
+                            val intent = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM).apply {
+                                data = Uri.parse("package:${context.packageName}")
+                            }
+                            context.startActivity(intent)
+                        },
+                        modifier = Modifier.padding(top = 8.dp)
+                    ) { Text("Allow exact timing") }
                 }
             }
         }

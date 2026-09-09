@@ -10,6 +10,18 @@ data class Schedule(
     val timesPerWeek: Int = 3          // only used for TIMES_PER_WEEK
 )
 
+/**
+ * A named daily occurrence of a habit (e.g. "Morning" / "Evening" for a habit done twice a
+ * day, each tracked independently). Every habit has at least one slot; single-occurrence
+ * habits (still the common case) have exactly one, with id=DEFAULT_SLOT_ID and an empty label
+ * (the habit's own name is shown instead of a sub-label in that case).
+ */
+data class HabitSlot(
+    val id: String,
+    val label: String,
+    val reminderTime: LocalTime?
+)
+
 data class Habit(
     val id: String,
     val name: String,
@@ -19,14 +31,19 @@ data class Habit(
     val unit: String,
     val schedule: Schedule,
     val grace: Boolean,
-    val reminderTime: LocalTime?,
+    val slots: List<HabitSlot>,   // always non-empty
     val archived: Boolean,
     val pausedUntil: LocalDate?,
     val createdAt: LocalDate
-)
+) {
+    /** The single slot for a not-yet-multi-occurrence habit - the overwhelmingly common case. */
+    val primarySlot: HabitSlot get() = slots.first()
+    val hasMultipleSlots: Boolean get() = slots.size > 1
+}
 
 data class Completion(
     val habitId: String,
+    val slotId: String,
     val date: LocalDate,
     val value: Int,
     val isGrace: Boolean
@@ -45,11 +62,4 @@ data class Routine(
     val timeLabel: TimeLabel,
     val sortOrder: Int,
     val habitIds: List<String>
-)
-
-/** A habit bundled with all of its logged data, the shape most stats functions operate on. */
-data class HabitWithData(
-    val habit: Habit,
-    val completionsByDate: Map<LocalDate, Completion>,
-    val notesByDate: Map<LocalDate, HabitNote>
 )

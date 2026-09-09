@@ -16,15 +16,32 @@ data class HabitEntity(
     val scheduleInterval: Int,     // only for INTERVAL
     val scheduleTimesPerWeek: Int, // only for TIMES_PER_WEEK
     val grace: Boolean,
-    val reminderTime: String?,     // "HH:mm" or null
+    val reminderTime: String?,     // legacy, no longer read/written - superseded by HabitSlotEntity.
+                                    // Kept as a physical column so migrating to slots didn't require
+                                    // rebuilding this table too; safe to drop in a future cleanup.
     val archived: Boolean,
     val pausedUntil: String?,      // ISO date "yyyy-MM-dd" or null
     val createdAt: String          // ISO date
 )
 
-@Entity(tableName = "completions", primaryKeys = ["habitId", "date"])
+/**
+ * A named daily occurrence of a habit (e.g. "Morning" / "Evening" for a habit done twice a
+ * day). Every habit has at least one slot; single-occurrence habits (the common case) have
+ * exactly one slot with slotId=DEFAULT_SLOT_ID and an empty label.
+ */
+@Entity(tableName = "habit_slots", primaryKeys = ["habitId", "slotId"])
+data class HabitSlotEntity(
+    val habitId: String,
+    val slotId: String,
+    val label: String,             // "", "Morning", "Evening", or custom
+    val reminderTime: String?,     // "HH:mm" or null
+    val sortOrder: Int
+)
+
+@Entity(tableName = "completions", primaryKeys = ["habitId", "slotId", "date"])
 data class CompletionEntity(
     val habitId: String,
+    val slotId: String,
     val date: String,   // ISO date "yyyy-MM-dd"
     val value: Int,      // progress amount; for YES_NO, 1 = done
     val isGrace: Boolean

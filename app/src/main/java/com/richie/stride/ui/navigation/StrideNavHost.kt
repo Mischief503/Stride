@@ -128,7 +128,8 @@ fun StrideNavHost(viewModel: MainViewModel) {
                 CalendarScreen(
                     viewModel = viewModel,
                     onOpenDetail = { id -> navController.navigate(Destinations.detail(id)) },
-                    onEditHabit = { id -> navController.navigate(Destinations.editHabit(id)) }
+                    onEditHabit = { id -> navController.navigate(Destinations.editHabit(id)) },
+                    onAddHabitForDate = { date -> navController.navigate(Destinations.addHabit(date)) }
                 )
             }
             composable(Destinations.INSIGHTS) {
@@ -159,14 +160,28 @@ fun StrideNavHost(viewModel: MainViewModel) {
             }
             composable(
                 Destinations.ADD_EDIT,
-                arguments = listOf(navArgument(Destinations.ADD_EDIT_ARG) {
-                    type = NavType.StringType
-                    nullable = true
-                    defaultValue = null
-                })
+                arguments = listOf(
+                    navArgument(Destinations.ADD_EDIT_ARG) {
+                        type = NavType.StringType
+                        nullable = true
+                        defaultValue = null
+                    },
+                    navArgument(Destinations.ADD_EDIT_DATE_ARG) {
+                        type = NavType.StringType
+                        nullable = true
+                        defaultValue = null
+                    }
+                )
             ) { entry ->
                 val habitId = entry.arguments?.getString(Destinations.ADD_EDIT_ARG)
-                AddEditScreen(viewModel = viewModel, habitId = habitId, onDone = { navController.popBackStack() })
+                val startDate = entry.arguments?.getString(Destinations.ADD_EDIT_DATE_ARG)
+                    ?.let { runCatching { java.time.LocalDate.parse(it) }.getOrNull() }
+                AddEditScreen(
+                    viewModel = viewModel,
+                    habitId = habitId,
+                    initialStartDate = startDate,
+                    onDone = { navController.popBackStack() }
+                )
             }
             composable(
                 Destinations.ROUTINE_EDIT,
